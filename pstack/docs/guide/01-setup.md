@@ -1,49 +1,47 @@
-# Set up pstack
+# Set up pstack for Codex
 
-In this page you install the plugin, pick which models pstack uses, and run your first task. Setup is one command plus a short conversation.
+Install the plugin, optionally choose model preferences, then try a small task. You do not need Slack, an issue tracker, or a separate bot.
 
 ## Install the plugin
 
-In a Cursor chat, run:
+From a checkout of this repository, follow [Install from this checkout](../../README.md#install-from-this-checkout). That builds a standalone marketplace containing only pstack and installs it with the Codex CLI. Choose a durable output location and keep it while the marketplace is configured. Start a new Codex session after installation.
+
+The installed skills use names such as `$pstack:poteto-mode`. The plugin does not install app-control tools or a background scheduler.
+
+## Choose model preferences when needed
+
+The defaults work without setup: every role inherits the current session's model, and review panels use three independent runs. To change those preferences:
 
 ```text
-/add-plugin pstack
+$pstack:setup-pstack configure the models and panel sizes used by pstack
 ```
 
-Cursor confirms the plugin is installed.
+[`$pstack:setup-pstack`](../../skills/setup-pstack/SKILL.md) checks the capabilities exposed by your Codex host. It writes `pstack-models.md` under `CODEX_HOME` (default `~/.codex`). This is a pstack-owned Markdown file that skills read on invocation; it does not change Codex's native configuration.
 
-## Pick your models
+Only confirmed available models can be selected explicitly. If the host cannot select a model per worker, retain inheritance. `auto` is an alias for `inherit-parent`, not a model ID. A panel list has one entry per independent run, including repeated entries. Parallel execution is limited by the host's available slots.
 
-Run:
+A role without an override keeps its default. Rerunning setup preserves unrelated preferences. Skills read changes on their next invocation.
+
+## Give Codex a way to verify your app
+
+If your project already has a usable harness, keep it. Otherwise:
 
 ```text
-/setup-pstack
+$pstack:create-verification-skill create a verification skill for this app
 ```
 
-[`/setup-pstack`](../../skills/setup-pstack/SKILL.md) detects the models you have access to, asks for a reasoning budget, shows you each role (code delegates, judgment, the review panels), and asks what you want. Answer the questions. It writes `~/.cursor/rules/pstack-models.mdc`, a small rule every pstack skill reads.
-
-You only override what you care about. A role with no line in the rule keeps the skill's default. To restore a default, delete that role's line. A rerun of `/setup-pstack` keeps any role whose model differs from the default. A rule written before 0.15.3 pins the old default models, so delete those role lines, or delete the file, then run `/setup-pstack` again.
-
-You might be wondering what happens if you use Auto. Set a role to `inherit-parent` or `auto` and pstack omits the subagent `model` field, so the subagent inherits your parent chat model. Both values mean the same thing, and neither is a model slug. For a panel role the value is a list, and one subagent runs per entry, so the list length sets the panel size. Setup also configures `swarm workers`, the default model for every `/swarm` worker unless a race names a model for each arm.
-
-## Accept the verification offer, or don't
-
-At the end of setup, `/setup-pstack` looks for a way to prove app behavior in your project, either a `verify-*` skill or an existing harness. If it finds neither, it offers once to generate one with [`/create-verification-skill`](../../skills/create-verification-skill/SKILL.md).
-
-Say yes and it writes `.cursor/skills/verify-<app>/`, a project-local skill that teaches agents to drive your app the way a user does. It proves the skill works once before handing it over. Say no and setup moves on. You can run `/create-verification-skill` yourself any time. [Verify and ship](./06-verify-and-ship.md#create-a-project-verification-skill) covers when it earns its place.
-
-After setup, start a new chat. The model rule applies to new sessions.
+This generates `.agents/skills/verify-<app>/`, including launch, health-check, driving, evidence, cleanup, and feature-map instructions. It executes one feature end to end before reporting the skill as working. [Verify and ship](./06-verify-and-ship.md#create-a-project-verification-skill) explains the workflow and its examples.
 
 ## Run your first task
 
-Pick something real but small, and describe it the way you'd describe it to a colleague:
+Pick something real but small:
 
 ```text
-/poteto-mode add a --json flag to this command. text output stays byte-identical. verify both.
+$pstack:poteto-mode add a --json flag to this command. text output stays byte-identical. verify both. keep the changes local.
 ```
 
-Watch the todo list. Its first items are the matched playbook's steps copied in, the Feature playbook for this prompt. If `/poteto-mode` skips a step, the step stays in the list with `skip: <reason>`, so you can see what it chose not to do.
+The skill picks the Feature playbook and tracks its steps in the available plan tool or a Markdown checklist. A skipped step includes its reason.
 
-From here you can type normal follow-ups. `/poteto-mode` is sticky. It stays on for the conversation until you opt out by saying so.
+From here you can use ordinary follow-ups. The workflow continues within this conversation until you change it; it is not a global mode switch.
 
-Next: [Route work through `/poteto-mode`](./02-poteto-mode.md).
+Next: [Route work through poteto-mode](./02-poteto-mode.md).

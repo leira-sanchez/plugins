@@ -1,0 +1,5 @@
+interface:
+  display_name: "Type system discipline"
+  short_description: "Type system discipline engineering workflow"
+policy:
+  allow_implicit_invocation: false

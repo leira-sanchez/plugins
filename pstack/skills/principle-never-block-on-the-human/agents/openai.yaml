@@ -1,0 +1,5 @@
+interface:
+  display_name: "Never block on the human"
+  short_description: "Never block on the human engineering workflow"
+policy:
+  allow_implicit_invocation: false

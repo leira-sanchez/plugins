@@ -1,0 +1,5 @@
+interface:
+  display_name: "Outcome oriented execution"
+  short_description: "Outcome oriented execution"
+policy:
+  allow_implicit_invocation: false

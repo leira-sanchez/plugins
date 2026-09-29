@@ -1,0 +1,5 @@
+interface:
+  display_name: "Teach"
+  short_description: "Teach engineering workflow"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Attack the premise"
+  short_description: "Attack the premise engineering workflow"
+policy:
+  allow_implicit_invocation: false

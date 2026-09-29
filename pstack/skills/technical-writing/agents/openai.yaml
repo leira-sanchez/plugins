@@ -1,0 +1,5 @@
+interface:
+  display_name: "Technical writing"
+  short_description: "Technical writing engineering workflow"
+policy:
+  allow_implicit_invocation: false
