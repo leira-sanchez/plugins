@@ -1,6 +1,6 @@
 # pstack for Codex
 
-A Codex adaptation of [Lauren Tan's pstack](https://github.com/cursor/plugins/tree/main/pstack). It keeps the engineering principles, playbooks, review rubrics, and verification tools, and replaces Cursor-specific runtime instructions.
+A Codex adaptation of [Lauren Tan's pstack](https://github.com/cursor/plugins/tree/main/pstack). It provides engineering principles, playbooks, review rubrics, and verification tools for Codex.
 
 ## Install from this checkout
 
@@ -14,7 +14,7 @@ codex plugin add pstack@pstack-codex
 
 Keep the marketplace directory while it is configured. For a durable installation, choose a permanent output location. Rebuilding requires a new output directory; the packager refuses to overwrite an existing one. The package contains only pstack, so the fork's other plugins are not installed. Start a new Codex session after installation.
 
-The supported manifest is `.codex-plugin/plugin.json`. The upstream `.cursor-plugin` manifest remains for repository catalog validation, but this fork's pstack skills target Codex. It is not a promise of dual-host compatibility.
+The plugin manifest is `.codex-plugin/plugin.json`.
 
 ## Start
 
@@ -52,10 +52,10 @@ The [Codex runtime contract](skills/poteto-mode/references/codex-runtime.md) def
 
 - Subagents use the tools exposed by the current Codex host, bounded by its concurrency limits. Writers get exclusive worktrees or disjoint files. There is no implicit cloud VM. Without subagents, workflows run sequentially and disclose missing independent verification.
 - `agents/poteto-agent.md` and `agents/comment-sicko.md` are prompt resources, not registered agent types.
-- Browser and CLI verification use available tools or a project harness. No `cursor-team-kit` installation is required.
+- Browser and CLI verification use available tools or a project harness.
 - History workflows use scoped host history, supplied transcripts, the current conversation, or project checkpoints. They do not search global session storage.
 - Long runs require an active session or a separately configured host scheduler. This plugin does not install a scheduler, webhook backend, or automatic restart mechanism.
-- GitHub workflows require Git and authenticated `gh`. Optional Origin or Graphite workflows require their respective CLIs; the orchestration store's `frontier set` specifically uses Graphite metadata. Do not use that stack workflow when Graphite is absent.
+- GitHub workflows require Git and authenticated `gh`. The optional Graphite stack workflow requires `gt`; the orchestration store's `frontier set` specifically uses Graphite metadata. Do not use that stack workflow when Graphite is absent.
 - The orchestration and PR-watcher scripts require Bun. Their bootstrap installs locked dependencies on first use. The worktree audit also uses Python 3 and `jq`; it accepts an optional workspace-scoped transcript directory and treats missing history as unknown.
 
 A skill does not expand permission to publish, message, merge, or deploy. Existing user authorization and host policies govern those actions.
@@ -75,12 +75,8 @@ bun test orch watch-pr
 bun run typecheck
 ```
 
-The Python validator checks manifest resources, skill frontmatter, invocation policy, and local Markdown links. Tests exercise packaging and worktree history behavior. The smoke test installs into a temporary `CODEX_HOME` and checks all 47 skills through Codex's app-server discovery API, without starting a model or modifying your Codex configuration. Structural validation and discovery do not prove agent behavior on real tasks.
+The Python validator checks manifest resources, skill frontmatter, invocation policy, and local Markdown links. Tests exercise packaging, plan validation, and worktree history behavior. The smoke test installs into a temporary `CODEX_HOME` and checks all 47 skills through Codex's app-server discovery API, without starting a model or modifying your Codex configuration. Structural validation and discovery do not prove agent behavior on real tasks.
 
-## Upstream material and remaining platform integration
-
-The illustrated `docs/guide/` is retained as historical Cursor documentation, not Codex setup instructions. Use this README and the runtime contract for Codex.
-
-The dormant `automations/benny/` pack still targets Cursor's automation service. It is excluded from the Codex package. Its Slack triggers, credential setup, and automation editor handoff need a separate provider integration before Benny can run under Codex. `make-bot-ui` accepts an existing webhook; it does not create that backend.
+## License
 
 This fork preserves the upstream MIT license and attribution. See `LICENSE`.

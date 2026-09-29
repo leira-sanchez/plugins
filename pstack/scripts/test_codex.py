@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import tempfile
 import time
@@ -18,7 +19,7 @@ def load_script(name):
 
 
 class PackageTests(unittest.TestCase):
-    def test_catalog_resolves_complete_plugin_and_excludes_cursor_automation(self):
+    def test_catalog_resolves_complete_codex_plugin(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "marketplace"
             load_script("package-codex").package(output)
@@ -44,6 +45,33 @@ class PackageTests(unittest.TestCase):
                 load_script("package-codex").package(output)
             self.assertEqual(sentinel.read_text(), "user data")
             self.assertEqual(list(output.iterdir()), [sentinel])
+
+
+class PlanTests(unittest.TestCase):
+    def setUp(self):
+        template = (ROOT / "skills/poteto-mode/playbooks/multi-phase-plan.md").read_text()
+        skeleton = template.split("````markdown\n", 1)[1].split("\n````", 1)[0]
+        self.plan = re.sub(r"<[^<>]+>", "example", skeleton)
+
+    def check_plan(self, plan):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "plan.md"
+            path.write_text(plan)
+            return subprocess.run(
+                ["node", str(ROOT / "skills/poteto-mode/scripts/check-plan.mjs"), str(path)],
+                capture_output=True, text=True,
+            )
+
+    def test_completed_codex_plan_passes(self):
+        result = self.check_plan(self.plan)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("1 PR sections, 0 problems", result.stdout)
+
+    def test_missing_verification_lane_still_fails(self):
+        plan = "\n".join(line for line in self.plan.splitlines() if not line.startswith("- [ ] Lane 10."))
+        result = self.check_plan(plan)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("expected 1 to 10", result.stderr)
 
 
 class WorktreeAuditTests(unittest.TestCase):

@@ -5,7 +5,7 @@ description: Configure pstack's Codex model preferences and review panel sizes. 
 
 # Setup pstack
 
-Read the [Codex runtime contract](../poteto-mode/references/codex-runtime.md). Write pstack's optional `pstack-models.md` in `CODEX_HOME`, default `~/.codex`. Do not edit Codex's `config.toml` or a Cursor rules file.
+Read the [Codex runtime contract](../poteto-mode/references/codex-runtime.md). Write pstack's optional `pstack-models.md` in `CODEX_HOME`, default `~/.codex`. Do not edit Codex's `config.toml`.
 
 1. Inspect the current session's subagent schema and any available model catalog. Record whether delegation, model selection, and reasoning overrides are supported. Do not infer entitlement from a model's name or the plugin's examples.
 2. Read the existing preference file if present. Preserve existing choices unless the user wants to change them.

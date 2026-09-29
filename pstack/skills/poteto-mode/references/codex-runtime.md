@@ -1,6 +1,6 @@
 # Codex runtime contract
 
-This is the shared runtime for pstack's Codex skills. Resolve paths relative to the loaded skill file, not the working directory. The plugin root is three directories above this file. Read sibling skills by their paths when a routed skill is not in the discovery list. Invoke plugin-installed skills by their catalog names, such as `$pstack:poteto-mode` and `$pstack:arena`. Standalone copies may use unprefixed names; do not assume Cursor slash commands or custom agent types exist.
+This is the shared runtime for pstack's Codex skills. Resolve paths relative to the loaded skill file, not the working directory. The plugin root is three directories above this file. Read sibling skills by their paths when a routed skill is not in the discovery list. Invoke plugin-installed skills by their catalog names, such as `$pstack:poteto-mode` and `$pstack:arena`. Standalone copies may use unprefixed names. Use only tools and agent types exposed by the current host.
 
 ## Delegation and models
 
@@ -25,7 +25,7 @@ Use the available plan tool or a short Markdown checklist. For user questions, u
 
 An active session can monitor a yielding shell process or wait for a worker. Use the supplied watcher as the event source, poll through the host's process API, and keep updates responsive. A plugin does not provide a scheduler or keep Codex alive after the session exits. For unattended continuation use only an actually available, explicitly configured host scheduler. Otherwise checkpoint the predicate, worktree, progress, and resume command before ending. Do not promise an overnight wake or an automatic restart. A goal is created only when the user requests one and the host supports it; an exit-condition checklist needs no goal tool.
 
-Store durable program state at a task-specific path in the repository's Git common directory (resolve with `git rev-parse --git-common-dir`), for example `pstack/orchestrate/<project>`. Pass that absolute path to workers and `orch --store`. Do not rely on a Cursor agent store. Remote workers, if independently available, need reachable artifacts rather than local paths.
+Store durable program state at a task-specific path in the repository's Git common directory (resolve with `git rev-parse --git-common-dir`), for example `pstack/orchestrate/<project>`. Pass that absolute path to workers and `orch --store`. Remote workers, if independently available, need reachable artifacts rather than local paths.
 
 ## History and verification tools
 
@@ -33,7 +33,7 @@ Use the current conversation, an explicitly supplied transcript, a host-provided
 
 For skill authoring, use `$skill-creator` when installed. Otherwise create `SKILL.md` with `name` and `description`, preserve relative resources, and validate the frontmatter. Project skills live under `.agents/skills/`; personal skills under `~/.agents/skills/` or the host's configured skills directory. Preserve explicit invocation settings in `agents/openai.yaml` via `policy.allow_implicit_invocation: false`; normal discovery is the default.
 
-For browser/UI verification, use the available browser, computer-use, Playwright, or project harness. For CLIs, use shell/PTY tools and observable output. Select a driver that exists and prove the user-visible behavior. If no driver exists, create a project verification skill or report the concrete missing capability. The phrases `control-ui`, `control-cli`, and “control skill” in playbooks denote these capabilities, not dependencies on another plugin.
+For browser/UI verification, use the available browser, computer-use, Playwright, or project harness. For CLIs, use shell/PTY tools and observable output. Select a driver that exists and prove the user-visible behavior. If no driver exists, create a project verification skill or report the concrete missing capability.
 
 Before a commit, inspect the diff for unnecessary abstractions, dead code, debug output, and unrelated edits, and run the repository's relevant checks. This replaces the upstream `deslop` dependency. Use the bundled no-comments and unslop workflows where the playbook calls for them.
 
