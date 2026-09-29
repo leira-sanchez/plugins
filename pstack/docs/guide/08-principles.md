@@ -1,3 +1,5 @@
+> Historical upstream Cursor guide. For this fork’s Codex setup and runtime, see [pstack for Codex](../../README.md).
+
 # Steer with principle names
 
 pstack ships 23 principles as individual skills. `/poteto-mode` reads their index at the start of every multi-step task, applies the ones the task triggers, and names each applied principle in its reply along with the decision it changed.

@@ -1,3 +1,5 @@
+> Cursor-only upstream automation pack. Excluded from the Codex package; see [compatibility notes](../../README.md#upstream-material-and-remaining-platform-integration).
+
 # benny
 
 benny gives you two cursor automations for slack issue reports. one triages each report. the other reproduces confirmed bugs and may prepare a small draft fix.

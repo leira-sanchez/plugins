@@ -1,0 +1,5 @@
+interface:
+  display_name: "Figure it out"
+  short_description: "Figure it out engineering workflow"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Prove it works"
+  short_description: "Prove it works engineering workflow"
+policy:
+  allow_implicit_invocation: false

@@ -1,3 +1,5 @@
+> Historical upstream Cursor guide. For this fork’s Codex setup and runtime, see [pstack for Codex](../../README.md).
+
 # Recipes and pitfalls
 
 Prompts worth copying, then the mistakes everyone makes once. Swap in your own paths and finish conditions. The recipes are deliberately informal. That's how they get typed in practice, and the skills read intent fine.

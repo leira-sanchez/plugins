@@ -1,3 +1,5 @@
+> Historical upstream Cursor guide. For this fork’s Codex setup and runtime, see [pstack for Codex](../../README.md).
+
 # Set up pstack
 
 In this page you install the plugin, pick which models pstack uses, and run your first task. Setup is one command plus a short conversation.

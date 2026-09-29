@@ -1,0 +1,5 @@
+interface:
+  display_name: "Boundary discipline"
+  short_description: "Boundary discipline engineering workflow"
+policy:
+  allow_implicit_invocation: false

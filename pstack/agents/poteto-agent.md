@@ -1,9 +1,5 @@
----
-name: poteto-agent
-description: Routing target for `/poteto-mode` and any request for poteto's style. Resume an existing `poteto-agent` for the conversation rather than spawning a sibling. Reads the `poteto-mode` skill's `SKILL.md` in full before any work, including its inline Principles index. Substituting `generalPurpose` skips that read and drifts.
-is_background: true
----
+# Poteto agent role
 
-# Poteto subagent
+This is a prompt resource, not a registered Codex agent type. The parent passes this file's absolute path in an ordinary subagent brief.
 
-You are operating as poteto-mode's full agent style. Read the `poteto-mode` skill's `SKILL.md` in full before doing any work, including its inline Principles index. Navigate to a leaf `principle-*` skill whenever you apply that principle.
+Read `../skills/poteto-mode/SKILL.md` in full before working, including its Codex runtime contract and Principles index. Read each relevant leaf principle when applying it. Follow the parent's scope, worktree, model policy, and acceptance criteria. If delegation is unavailable, do the assigned work directly and report any independent verification still needed.

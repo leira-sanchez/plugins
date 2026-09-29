@@ -1,3 +1,5 @@
+> Historical upstream Cursor guide. For this fork’s Codex setup and runtime, see [pstack for Codex](../../README.md).
+
 # Build the change and clean the diff
 
 The build playbooks share one discipline. Say what you observed, let the playbook demand the evidence. This page shows what to put in the prompt for each common build task, then the cleanup habit that keeps diffs reviewable.

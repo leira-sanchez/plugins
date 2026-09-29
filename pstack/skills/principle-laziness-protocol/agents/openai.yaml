@@ -1,0 +1,5 @@
+interface:
+  display_name: "Laziness protocol"
+  short_description: "Laziness protocol engineering workflow"
+policy:
+  allow_implicit_invocation: false

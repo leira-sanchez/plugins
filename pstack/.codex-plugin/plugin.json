@@ -1,0 +1,36 @@
+{
+  "name": "pstack",
+  "version": "0.15.5-codex.1",
+  "description": "Rigorous engineering workflows for Codex: understand, design, implement, review, and verify.",
+  "author": {
+    "name": "Lauren Tan; Codex adaptation by Leira Sanchez"
+  },
+  "homepage": "https://github.com/leira-sanchez/plugins/tree/main/pstack",
+  "repository": "https://github.com/leira-sanchez/plugins",
+  "license": "MIT",
+  "keywords": [
+    "pstack",
+    "codex",
+    "engineering",
+    "review",
+    "verification"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "pstack",
+    "shortDescription": "Rigorous engineering workflows for Codex",
+    "longDescription": "Engineering principles, playbooks, independent reviews, and evidence-based verification adapted from Lauren Tan\u2019s pstack.",
+    "developerName": "Leira Sanchez",
+    "category": "Developer Tools",
+    "logo": "./assets/logo.png",
+    "defaultPrompt": [
+      "Use $pstack:poteto-mode to investigate and fix this bug.",
+      "Use $pstack:interrogate to review my changes.",
+      "Use $pstack:setup-pstack to configure model preferences."
+    ],
+    "capabilities": [
+      "Read",
+      "Write"
+    ]
+  }
+}

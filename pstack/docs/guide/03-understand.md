@@ -1,3 +1,5 @@
+> Historical upstream Cursor guide. For this fork’s Codex setup and runtime, see [pstack for Codex](../../README.md).
+
 # Understand the code before changing it
 
 Editing code you don't understand is how subtle regressions ship. pstack gives you four ways in. `/how` explains what the code does now. `/why` digs up the reasons it's shaped that way. `/teach` blends both into one explanation. `/recall` rebuilds your own recent context on a topic.

@@ -1,16 +1,17 @@
 ---
 name: why
 description: "Use for 'why does X work this way', 'why we picked Y', design rationale, regressions, postmortems, or data-backed thresholds. Discovers available MCPs and queries each evidence category (source control, issue tracker, long-form docs, real-time chat, infrastructure observability, error tracking, product analytics warehouse) in parallel, then returns a cited read on decisions and tradeoffs. Use how for runtime behavior."
-disable-model-invocation: true
 ---
 
 # Why
+
+Read the [Codex runtime contract](../poteto-mode/references/codex-runtime.md) before executing this workflow.
 
 Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Each spawn below names a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the Task tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.
+Resolve each role using the model configuration and fallback rules in the Codex runtime reference.
 
 ## Operating Posture
 
@@ -61,7 +62,7 @@ Capture this as seed context (file paths, symbols, commits, PR numbers, linked t
 
 ### Discovery
 
-Before spawning investigators, list the available MCPs from the Cursor environment. Use the available-tools map when present. Otherwise inspect the `mcps/` directory Cursor exposes for enabled MCP servers.
+Before spawning investigators, discover the session’s available tools and connectors using its tool catalog or documented discovery API. For MCP resources, use the host’s resource discovery if exposed. Do not assume a filesystem catalog exists.
 
 Map each available MCP to one evidence category:
 
@@ -77,12 +78,11 @@ Source control is always available through git and `gh`. For the other six, clas
 
 Aim for a complete **coverage map**, not a minimal one. Document the null, don't skip the search.
 
-Launch all matching investigators in a single message so they run concurrently. Don't ask one agent to cover multiple MCPs.
+Launch matching investigators within the host’s concurrency limit and queue remaining categories. Don't ask one agent to cover multiple MCPs.
 
 Subagent config (each):
-- `subagent_type`: `generalPurpose`
-- `model`: the `why investigators` line, default `grok-4.7-xhigh-fast`
-- `readonly`: `false` (agent mode). **Do not use readonly/Ask mode.** It strips MCP access, which disables MCP-backed investigators entirely. Investigators still shouldn't write anything.
+- `model`: the `why investigators` line, default `inherit-parent`
+- Scope: read-only investigation. Confirm needed MCP tools are available to the worker; otherwise perform those reads in the parent and relay the evidence.
 
 Each investigator gets:
 1. The base prompt from `references/investigator-prompt.md`
@@ -124,9 +124,8 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 Spawn one synthesizer subagent:
 
-- `subagent_type`: `generalPurpose`
-- `model`: the `why synthesizer` line, default `claude-opus-5-5-max`
-- `readonly`: `false` (agent mode). The synthesizer's quality check spot-verifies citations, which can require MCP access. Readonly/Ask mode strips MCPs and defeats that.
+- `model`: the `why synthesizer` line, default `inherit-parent`
+- Scope: read-only investigation. Confirm needed MCP tools are available to the worker; otherwise perform those reads in the parent and relay the evidence.
 
 The synthesizer gets:
 1. The investigator findings, including any null results and any categories skipped with justification

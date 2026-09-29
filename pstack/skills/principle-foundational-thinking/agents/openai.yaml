@@ -1,0 +1,5 @@
+interface:
+  display_name: "Foundational thinking"
+  short_description: "Foundational thinking engineering workflow"
+policy:
+  allow_implicit_invocation: false

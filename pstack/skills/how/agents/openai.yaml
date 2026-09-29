@@ -1,0 +1,5 @@
+interface:
+  display_name: "How"
+  short_description: "How engineering workflow"
+policy:
+  allow_implicit_invocation: false

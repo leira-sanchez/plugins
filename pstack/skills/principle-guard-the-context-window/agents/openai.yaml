@@ -1,0 +1,5 @@
+interface:
+  display_name: "Guard the context window"
+  short_description: "Guard the context window engineering workflow"
+policy:
+  allow_implicit_invocation: false

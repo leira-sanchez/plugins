@@ -1,0 +1,5 @@
+interface:
+  display_name: "Minimize reader load"
+  short_description: "Minimize reader load engineering workflow"
+policy:
+  allow_implicit_invocation: false

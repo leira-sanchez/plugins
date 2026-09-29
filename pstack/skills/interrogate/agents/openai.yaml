@@ -1,0 +1,5 @@
+interface:
+  display_name: "Interrogate"
+  short_description: "Interrogate engineering workflow"
+policy:
+  allow_implicit_invocation: false

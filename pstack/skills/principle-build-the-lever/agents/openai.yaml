@@ -1,0 +1,5 @@
+interface:
+  display_name: "Build the lever"
+  short_description: "Build the lever engineering workflow"
+policy:
+  allow_implicit_invocation: false

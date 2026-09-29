@@ -1,0 +1,5 @@
+interface:
+  display_name: "Show me your work"
+  short_description: "Show me your work engineering workflow"
+policy:
+  allow_implicit_invocation: false

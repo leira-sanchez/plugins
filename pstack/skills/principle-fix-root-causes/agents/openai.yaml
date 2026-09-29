@@ -1,0 +1,5 @@
+interface:
+  display_name: "Fix root causes"
+  short_description: "Fix root causes engineering workflow"
+policy:
+  allow_implicit_invocation: false

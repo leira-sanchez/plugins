@@ -1,0 +1,5 @@
+interface:
+  display_name: "Automate me"
+  short_description: "Automate me engineering workflow"
+policy:
+  allow_implicit_invocation: false

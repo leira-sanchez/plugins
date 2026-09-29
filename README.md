@@ -2,6 +2,8 @@
 
 Official Cursor plugins for popular developer tools, frameworks, and SaaS products. Each plugin is a standalone directory at the repository root with its own `.cursor-plugin/plugin.json` manifest.
 
+This fork includes a [Codex port of pstack](pstack/README.md), with separate packaging and installation instructions. The other plugins retain their upstream formats.
+
 ## Plugins
 
 | `name` | Plugin | Author | Category | `description` (from marketplace) |
