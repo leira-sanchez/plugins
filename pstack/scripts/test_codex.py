@@ -32,9 +32,20 @@ class PackageTests(unittest.TestCase):
             )
             self.assertTrue((plugin / "skills/poteto-mode/scripts/watch-pr/watch-pr").is_file())
             self.assertTrue((plugin / "agents/comment-sicko.md").is_file())
+            self.assertEqual(
+                {p.relative_to(ROOT / "docs") for p in (ROOT / "docs").rglob("*.md")},
+                {p.relative_to(plugin / "docs") for p in (plugin / "docs").rglob("*.md")},
+            )
             self.assertFalse((plugin / "automations").exists())
             self.assertFalse((plugin / ".cursor-plugin").exists())
             self.assertEqual(list(plugin.rglob("node_modules")), [])
+
+            # A shipped guide must not link to a reference omitted from the package.
+            reference = plugin / "skills/poteto-mode/references/verify-existing-fix.md"
+            reference.unlink()
+            errors = load_script("validate-codex").validate(plugin)
+            self.assertTrue(any("docs/guide/06-verify-and-ship.md" in error
+                                and "verify-existing-fix.md" in error for error in errors), errors)
 
     def test_packaging_refuses_existing_output_without_modifying_it(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -15,7 +15,7 @@ def package(destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=False)
     plugin = destination / "plugins" / "pstack"
     plugin.mkdir(parents=True)
-    for name in (".codex-plugin", "skills", "agents", "assets"):
+    for name in (".codex-plugin", "skills", "agents", "assets", "docs"):
         shutil.copytree(source / name, plugin / name,
                         ignore=shutil.ignore_patterns("node_modules", "__pycache__", ".DS_Store", "*.pyc"))
     for name in ("README.md", "LICENSE"):

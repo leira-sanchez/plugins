@@ -44,7 +44,10 @@ def validate(root: Path) -> list[str]:
             invocation = yaml.safe_load(policy.read_text()).get("policy", {}).get("allow_implicit_invocation")
             if not isinstance(invocation, bool):
                 errors.append(f"{policy}: invocation policy must be boolean")
-    for path in (root / "skills").rglob("*.md"):
+    markdown = [root / "README.md"]
+    for directory in ("skills", "agents", "docs"):
+        markdown.extend((root / directory).rglob("*.md"))
+    for path in markdown:
         if "node_modules" in path.parts:
             continue
         # Only local Markdown links; inline example paths are not file dependencies.

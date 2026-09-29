@@ -41,6 +41,8 @@ Each feature file starts with an H1 title and one paragraph describing the user-
 
 Keep implementation details out of the map. Name only user paths, stable handles, required state, commands, and observable proof.
 
+For additional UI states, setup, reset, and evidence details, use the [feature-map checklist](../feature-map.example.md) while keeping this four-section layout.
+
 ## Features
 
 - [Create a note](./create-note.md) covers browser and CLI creation, cancellation, persistence, and cleanup.

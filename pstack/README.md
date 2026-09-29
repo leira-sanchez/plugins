@@ -46,6 +46,14 @@ The upstream explicit-only invocation settings are preserved in each skill's `ag
 
 The `principle-*` skills retain the upstream engineering principles. The 23 playbooks remain under `skills/poteto-mode/playbooks/`.
 
+## Guide and solo debugging
+
+The [pstack guide](docs/guide/README.md) walks through setup, everyday prompts, design, verification, longer tasks, and customization with Codex examples.
+
+For a solo bug fix, describe the symptom directly in the conversation. The [bug-fix playbook](skills/poteto-mode/playbooks/bug-fix.md) handles triage, bounded reproduction, cause analysis, and before-and-after verification. A local verified diff is a complete result when that is your requested scope. If a patch already exists, use the [existing-fix comparison](skills/poteto-mode/references/verify-existing-fix.md).
+
+The verification generator includes a [control-adapter contract](skills/create-verification-skill/references/control-adapter.md), [feature-map checklist and UI examples](skills/create-verification-skill/references/feature-map.example.md), and [worked map directory](skills/create-verification-skill/references/feature-map-example/README.md). These preserve the reusable verification techniques from the upstream Benny pack without its Slack triggers, team routing, or bot setup. No Slack account or issue tracker is required.
+
 ## Runtime and dependencies
 
 The [Codex runtime contract](skills/poteto-mode/references/codex-runtime.md) defines delegation, model fallbacks, history access, verification drivers, persistence, and authorization boundaries.
@@ -75,7 +83,7 @@ bun test orch watch-pr
 bun run typecheck
 ```
 
-The Python validator checks manifest resources, skill frontmatter, invocation policy, and local Markdown links. Tests exercise packaging, plan validation, and worktree history behavior. The smoke test installs into a temporary `CODEX_HOME` and checks all 47 skills through Codex's app-server discovery API, without starting a model or modifying your Codex configuration. Structural validation and discovery do not prove agent behavior on real tasks.
+The Python validator checks manifest resources, skill frontmatter, invocation policy, and local Markdown links in skills, agent prompts, the README, and the guide. Tests exercise packaging, plan validation, and worktree history behavior. The smoke test installs into a temporary `CODEX_HOME` and checks all 47 skills through Codex's app-server discovery API, without starting a model or modifying your Codex configuration. Structural validation and discovery do not prove agent behavior on real tasks.
 
 ## License
 

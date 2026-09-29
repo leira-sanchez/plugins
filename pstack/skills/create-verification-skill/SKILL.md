@@ -23,6 +23,8 @@ If the checkout doesn't build or start as-is, fix that first (or report it preci
 
 ## 2. Generate the skill
 
+Use the [control-adapter contract](references/control-adapter.md) to document the test environment, actual tool capabilities, reset, evidence, and cleanup. Match requirements to the surface: a CLI does not need video, while a transient UI defect may. Include a bounded startup/retry policy and identify unavailable required observations as gaps. Reuse the project's configuration and harness; no separate bot or configuration service is needed.
+
 Write `.agents/skills/verify-<app>/SKILL.md` with YAML frontmatter (`name: verify-<app>` and a `description` that names the app, the surface, and when to reach for it — without frontmatter the skill never registers) and these sections, each grounded in what the interview actually found (no placeholders left):
 
 - **Launch:** the exact command that starts the app for verification, and how to tell it's ready (a log line, a port answering, a prompt). Include teardown. For a short-lived CLI or TUI there is no server to keep alive: launch means build the binary (or install deps) once, then start each drive in its own isolated PTY or tmux session.
@@ -35,6 +37,8 @@ Write `.agents/skills/verify-<app>/SKILL.md` with YAML frontmatter (`name: verif
 ## 3. Seed the feature map
 
 Create `.agents/skills/verify-<app>/features/README.md` plus one file per user-facing feature you can identify (aim for the top 3-5 to start, from routes, commands, menus, or docs). Follow the shape in [`references/feature-map-example/`](references/feature-map-example/), with a README index and one file per feature. Each file answers, from the user's point of view: what the feature is, how to reach it, how to drive it with the harness, and what observable end state proves it works. The four H2s are `Sub-features`, `How to get to it (user POV)`, `Driving it with <harness>`, and `Gotchas`. The map is the repo's maintained verification source; a proof that drives one convenient entry point is incomplete when the map lists others.
+
+For UI features, use the [feature-map checklist and examples](references/feature-map.example.md) to fill in stable selectors, applicable states, auth and fixtures, reset steps, and the evidence that distinguishes correct from broken behavior. Keep those details within the four-section structure above and preserve project-owned maps when updating the skill.
 
 ## 4. Prove the generated skill before handing it over
 
